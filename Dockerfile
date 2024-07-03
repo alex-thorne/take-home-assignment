@@ -1,19 +1,24 @@
-FROM python:3.9-alpine
+# alpine Linux as base image
+FROM alpine:latest
 
-# Install required packages
-RUN apk add --no-cache gcc musl-dev linux-headers
+# Install Python and pip
+RUN apk add --no-cache python3 py3-pip py3-virtualenv
 
-# Set working directory
+# Setup Python virtual environment
+RUN python3 -m venv /app/venv
+
+# Copy application code to the image
+COPY app.py /app/app.py
+
+# Activate virtual environment and install Flask and Requests
+RUN . /app/venv/bin/activate && pip install flask requests
+
+# Set the working directory
 WORKDIR /app
 
-# Copy application code
-COPY . /app
+# Set the environment variable to use the virtual environment
+ENV VIRTUAL_ENV /app/venv
+ENV PATH="/app/venv/bin:$PATH"
 
-# Install Python dependencies
-RUN pip install -r requirements.txt
-
-# Expose port
-EXPOSE 5000
-
-# Run the application
-CMD ["python", "app.py"]
+# Define the command to run the application
+CMD ["python3", "app.py"]

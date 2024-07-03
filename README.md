@@ -58,3 +58,18 @@ Below is the email body we'd send out after agreeing with the candidates in the 
 >>3. The purpose of task is not the finished product, but your approach. This is not a race, and you are free to contact us with questions.
 
 </details>
+
+
+## Usage:
+
+Build Docker Image:
+```bash
+docker build -t app-image:latest .
+```
+
+## Deploy locally via Minikube:
+```bash
+minikube start
+kubectl apply -f deployment.yaml
+minikube service nginx-service
+```

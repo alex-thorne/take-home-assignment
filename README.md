@@ -37,7 +37,7 @@ Below is the email body we'd send out after agreeing with the candidates in the 
 >>
 >>1. Write a python application that displays Chuck Norris jokes from [this API](https://api.chucknorris.io/).
 >>2. The application should render a simple html page with the data from point 1.
->>3. Prepare the applicatio to run in a Docker container.
+>>3. Prepare the application to run in a Docker container.
 >>
 >>Additional requirements:
 >>

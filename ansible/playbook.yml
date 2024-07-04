@@ -1,0 +1,21 @@
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Update apt and install Docker
+      apt:
+        update_cache: yes
+        name: docker.io
+        state: present
+
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Run hello-world container
+      docker_container:
+        name: hello-world
+        image: hello-world
+        state: started

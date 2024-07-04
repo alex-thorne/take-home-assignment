@@ -1,3 +1,27 @@
+# Ignore everything in the ./secrets/ directory
+/secrets/*
+
+# Ignore ansible facts cache
+.ansible/
+
+# Ignore terraform state files
+*.tfstate
+*.tfstate.backup
+*.tfplan
+
+# Ignore terraform plugin cache
+.terraform/
+
+# Ignore Docker artifacts
+.DS_Store
+.dockerignore
+.docker/
+
+# Ignore any other build artifacts or temporary files
+*.log
+*.tmp
+*.swp
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

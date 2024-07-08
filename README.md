@@ -59,17 +59,57 @@ Below is the email body we'd send out after agreeing with the candidates in the 
 
 </details>
 
+# GCP Docker Deployment using Terraform and Ansible
 
-## Usage:
+This project demonstrates how to deploy a Docker "hello-world" container on a Google Cloud Platform (GCP) Compute Engine instance using Terraform and Ansible.
 
-Build Docker Image:
+## Prerequisites
+
+- Terraform
+- Ansible
+- Existing GCP account and project
+
+## Setup
+
+1. Clone the repository:
+
+    ```bash
+    git clone <repository-url>
+    cd REPO NAME
+    ```
+
+### Project structure:
+
+2. Navigate to the Terraform directory and initialize Terraform:
+
+    ```bash
+    cd terraform
+    terraform init
+    ```
+
+3. Apply the Terraform configuration:
+
+    ```bash
+    terraform apply
+    ```
+
+4. The public IP address of the provisioned instance will be shown in the Terraform output
+
+5. Update the Ansible hosts file with the instance IP:
+    ```bash
+    echo "[servers]" > ../ansible/hosts
+    echo "$(terraform output instance_ip)" >> ../ansible/hosts
+    ```
+
+6. Deploy the Docker container via Ansible:
+    ```bash
+    cd ../ansible
+    ansible-playbook -i hosts playbook.yml
+    ```
+
+## Clean up
+
+Tear down all created infrastructure via Terraform:
 ```bash
-docker build -t app-image:latest .
-```
-
-## Deploy locally via Minikube:
-```bash
-minikube start
-kubectl apply -f deployment.yaml
-minikube service nginx-service
-```
+cd terraform
+terraform destroy

@@ -1,0 +1,5 @@
+project_id                  = "your-project-id"
+region                      = "us-central1"
+zone                        = "us-central1-a"
+public_key_path             = "path/to/ansibleuser/sshpubkey"
+sa_account_credentials      = "path/to/sa_account/jsonfilecredentials"

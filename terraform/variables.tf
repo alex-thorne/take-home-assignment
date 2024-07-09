@@ -24,3 +24,7 @@ variable "sa_account_credentials" {
   description = "Path to SA Account JSON file credentials"
   type        = string
 }
+
+variable "user" {
+  description = "OS user for Ansible & Docker"
+}

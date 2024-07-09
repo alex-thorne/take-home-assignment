@@ -17,15 +17,15 @@ resource "google_compute_firewall" "allow_ssh" {
     protocol = "tcp"
     ports    = ["22"]
   }
-  target_tags = ["docker-instance"]
+  target_tags = ["chuck-norris-app"]
   source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_instance" "default" {
-  name         = "docker-instance"
-  machine_type = "f1-micro"
+  name         = "chuck-norris-app"
+  machine_type = "e2-micro"
   zone         = "us-central1-a"
-  tags         = ["allow-ssh", "docker-instance"]
+  tags         = ["allow-ssh", "chuck-norris-app"]
   
 
   boot_disk {
@@ -43,6 +43,14 @@ resource "google_compute_instance" "default" {
   }
 
   metadata = {
-    ssh-keys = "ansible_user:${file(var.public_key_path)}"
+    ssh-keys = "${var.user}:${file(var.public_key_path)}"
   }
+
+  metadata_startup_script = <<-EOF
+    #! /bin/bash
+    sudo apt-get update
+    sudo apt-get install -y docker.io
+    sudo service docker start
+    sudo usermod -aG docker ${var.user}
+    EOF
 }

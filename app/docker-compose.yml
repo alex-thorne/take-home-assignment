@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    networks:
+      - chuck-net
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    networks:
+      - chuck-net
+
+networks:
+  chuck-net:
+    driver: bridge

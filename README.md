@@ -59,9 +59,11 @@ Below is the email body we'd send out after agreeing with the candidates in the 
 
 </details>
 
-# GCP Docker Deployment using Terraform and Ansible
+<br></br><br></br>
 
-This project demonstrates how to deploy a Docker "hello-world" container on a Google Cloud Platform (GCP) Compute Engine instance using Terraform and Ansible.
+# #chuckstuff: Chuck Norris facts made possible via Terraform, Ansible, and Docker. 
+
+Follow the steps below to deploy this sample containerized application to GCP Compute Engine instance using Terraform and Ansible.
 
 ## Prerequisites
 
@@ -75,41 +77,44 @@ This project demonstrates how to deploy a Docker "hello-world" container on a Go
 
     ```bash
     git clone <repository-url>
-    cd REPO NAME
+    cd <repo name>
     ```
 
-### Project structure:
+2. Adjust account & credentials placeholders in `/terraform.tfvars` & `ansible.cfg`
 
-2. Navigate to the Terraform directory and initialize Terraform:
+3. Apply Terraform from /terraform directory:
 
     ```bash
     cd terraform
     terraform init
-    ```
-
-3. Apply the Terraform configuration:
-
-    ```bash
     terraform apply
     ```
 
-4. The public IP address of the provisioned instance will be shown in the Terraform output
+4. The public IP address of the provisioned instance will be shown in the Terraform output:
+
+    ```bash
+    Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+    Outputs:
+    instance_ip = "xx.xxx.xx.xx"
+    ```
 
 5. Update the Ansible hosts file with the instance IP:
+
     ```bash
-    echo "[servers]" > ../ansible/hosts
-    echo "$(terraform output instance_ip)" >> ../ansible/hosts
+    echo -e "[app]\n$(terraform output instance_ip)" > ../ansible/inventory
     ```
 
 6. Deploy the Docker container via Ansible:
+
     ```bash
     cd ../ansible
-    ansible-playbook -i hosts playbook.yml
+    ansible-playbook -i inventory playbook.yml
     ```
 
-## Clean up
+### Clean up, Chuck!
 
-Tear down all created infrastructure via Terraform:
-```bash
-cd terraform
-terraform destroy
+Don't forget to tear everything down:
+    ```bash
+    cd ../terraform
+    terraform destroy
+    ```

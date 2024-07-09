@@ -4,9 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chuck Norris Jokes</title>
+    <style>
+        body {
+            background-image: url('/static/chuck_kick1.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .joke-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+            font-size: 18px;
+        }
+        .footer {
+            margin-top: 20px;
+            color: #777;
+            font-size: 14px;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
-    <h1>Chuck Norris Jokes</h1>
-    <p>{{ joke }}</p>
+    <div class="joke-container">
+        <h1>#chuckstuff</h1>
+        <p>{{ joke }}</p>
+        <div class="footer">refresh for more Chuck</div>
+    </div>
 </body>
 </html>

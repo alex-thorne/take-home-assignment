@@ -118,3 +118,12 @@ Don't forget to tear everything down:
     cd ../terraform
     terraform destroy
     ```
+
+## Test Locally
+
+Docker-compose included for convient chucking @localhost
+
+```bash
+cd app
+docker-compose up --build
+```

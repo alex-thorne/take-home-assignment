@@ -1,21 +1,62 @@
-- hosts: all
-  become: yes
+---
+- hosts: app
+  become: true
 
   tasks:
-    - name: Update apt and install Docker
+    - name: Install Docker
       apt:
-        update_cache: yes
         name: docker.io
         state: present
+        update_cache: yes
 
-    - name: Ensure Docker service is running
+    - name: Start Docker
       service:
         name: docker
         state: started
         enabled: yes
 
-    - name: Run hello-world container
-      docker_container:
-        name: hello-world
-        image: hello-world
-        state: started
+    - name: Add user to docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+
+    - name: Create directory for app
+      file:
+        path: /home/chuck/chuck-app
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+
+    - name: Copy application Dockerfile
+      copy:
+        src: ../Dockerfile
+        dest: /home/chuck/chuck-app/Dockerfile
+
+    - name: Copy application file
+      copy:
+        src: ../app/app.py
+        dest: /home/chuck/chuck-app/app.py
+
+    - name: Copy Nginx Dockerfile
+      copy:
+        src: ../Dockerfile.nginx
+        dest: /home/chuck/chuck-app/Dockerfile.nginx
+
+    - name: Copy Nginx config file
+      copy:
+        src: ../nginx.conf
+        dest: /home/chuck/chuck-app/nginx.conf
+
+    - name: Build and run application container
+      shell: |
+        cd /home/chuck/chuck-app
+        docker build -t chuck-app .
+        docker run -d --name app -p 5000:5000 chuck-app
+
+    - name: Build and run Nginx container
+      shell: |
+        cd /home/chuck/chuck-app
+        docker build -t nginx-proxy -f Dockerfile.nginx .
+        docker run -d --name nginx -p 80:80 --link app:app nginx-proxy

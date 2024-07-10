@@ -76,8 +76,8 @@ Follow the steps below to deploy this sample containerized application to GCP Co
 1. Clone the repository:
 
     ```bash
-    git clone <repository-url>
-    cd <repo name>
+    git clone git@github.com:alex-thorne/take-home-assignment.git
+    cd take-home-assignment
     ```
 
 2. Adjust account & credentials placeholders in `/terraform.tfvars` & `ansible.cfg`

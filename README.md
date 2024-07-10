@@ -1,4 +1,4 @@
-# take-home-test
+# take-home-assignment
 _An example take-home evaluation for basic DevOps engineer candidate qualifications_
 
 ## Introduction

@@ -130,3 +130,8 @@ Docker-compose included for convient chucking @localhost
 cd app
 docker-compose up --build
 ```
+
+## TODO
+[ ] error handling in ansible
+
+[ ] MORE CHUCK (I'm thinking animated kicks)

@@ -112,7 +112,7 @@ Follow the steps below to deploy this sample containerized application to GCP Co
     ```
 
 7. Profit?
-    - note: this project doesn't include any considerations for internet ingress, so to verift the docker images are running and serving up the chuck stuff correctly you'll need to be clever.
+    - note: this project doesn't include any considerations for internet ingress to the gcp vm, so to verify the docker images are running and serving up the chuck stuff correctly you'll need to be clever.
 
 ### Clean up, Chuck!
 

@@ -117,10 +117,11 @@ Follow the steps below to deploy this sample containerized application to GCP Co
 ### Clean up, Chuck!
 
 Don't forget to tear everything down:
-    ```bash
-    cd ../terraform
-    terraform destroy
-    ```
+
+```bash
+cd ../terraform
+terraform destroy
+```
 
 ## Test Locally
 

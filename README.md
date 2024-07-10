@@ -93,7 +93,7 @@ Follow the steps below to deploy this sample containerized application to GCP Co
 4. The public IP address of the provisioned instance will be shown in the Terraform output:
 
     ```bash
-    Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+    Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
     Outputs:
     instance_ip = "xx.xxx.xx.xx"
     ```
@@ -108,8 +108,11 @@ Follow the steps below to deploy this sample containerized application to GCP Co
 
     ```bash
     cd ../ansible
-    ansible-playbook -i inventory playbook.yml
+    ansible-playbook playbook.yml
     ```
+
+7. Profit?
+    - note: this project doesn't include any considerations for internet ingress, so to verift the docker images are running and serving up the chuck stuff correctly you'll need to be clever.
 
 ### Clean up, Chuck!
 

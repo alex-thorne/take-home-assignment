@@ -23,7 +23,7 @@
 
     - name: Create directory for app
       file:
-        path: /home/chuck/chuck-app
+        path: /home/chuck/app
         state: directory
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
@@ -32,31 +32,36 @@
     - name: Copy application Dockerfile
       copy:
         src: ../Dockerfile
-        dest: /home/chuck/chuck-app/Dockerfile
+        dest: /home/chuck/app/Dockerfile
 
     - name: Copy application file
       copy:
         src: ../app/app.py
-        dest: /home/chuck/chuck-app/app.py
+        dest: /home/chuck/app/app.py
 
     - name: Copy Nginx Dockerfile
       copy:
         src: ../Dockerfile.nginx
-        dest: /home/chuck/chuck-app/Dockerfile.nginx
+        dest: /home/chuck/app/Dockerfile.nginx
 
     - name: Copy Nginx config file
       copy:
         src: ../nginx.conf
-        dest: /home/chuck/chuck-app/nginx.conf
+        dest: /home/chuck/app/nginx.conf
+
+    - name: Create network
+      shell: |
+        docker network create chuck-net
 
     - name: Build and run application container
       shell: |
-        cd /home/chuck/chuck-app
-        docker build -t chuck-app .
-        docker run -d --name app -p 5000:5000 chuck-app
+        cd /home/chuck/app
+        docker build -t app .
+        docker run -d --name app --network chuck-net chuck-app
+        
 
     - name: Build and run Nginx container
       shell: |
-        cd /home/chuck/chuck-app
-        docker build -t nginx-proxy -f Dockerfile.nginx .
-        docker run -d --name nginx -p 80:80 --link app:app nginx-proxy
+        cd /home/chuck/app
+        docker build -t nginx-proxy -f nginx.Dockerfile .
+        docker run -d -p 80:80 --name nginx --network chuck-net nginx-proxy

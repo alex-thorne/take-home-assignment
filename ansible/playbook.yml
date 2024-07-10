@@ -29,25 +29,12 @@
         group: "{{ ansible_user }}"
         mode: '0755'
 
-    - name: Copy application Dockerfile
+    - name: Copy /app contents
       copy:
-        src: ../Dockerfile
-        dest: /home/chuck/app/Dockerfile
+        src: ../app/
+        dest: /home/chuck/app/
+        owner: "{{ ansible_user }}"
 
-    - name: Copy application file
-      copy:
-        src: ../app/app.py
-        dest: /home/chuck/app/app.py
-
-    - name: Copy Nginx Dockerfile
-      copy:
-        src: ../Dockerfile.nginx
-        dest: /home/chuck/app/Dockerfile.nginx
-
-    - name: Copy Nginx config file
-      copy:
-        src: ../nginx.conf
-        dest: /home/chuck/app/nginx.conf
 
     - name: Create network
       shell: |
@@ -56,7 +43,7 @@
     - name: Build and run application container
       shell: |
         cd /home/chuck/app
-        docker build -t app .
+        docker build -t chuck-app .
         docker run -d --name app --network chuck-net chuck-app
         
 
